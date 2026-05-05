@@ -1,11 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 
-const Navbar = ({ setPage }) => {
+const Navbar = () => {
   const [langOpen, setLangOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState("Translate");
   const [authOpen, setAuthOpen] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
 
+  const loginRef = useRef();
+  const registerRef = useRef();
+  const langRef = useRef();
+  
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+
+      if (loginRef.current && !loginRef.current.contains(event.target)) {
+        setAuthOpen(false);
+      }
+
+      if (registerRef.current && !registerRef.current.contains(event.target)) {
+        setRegisterOpen(false);
+      }
+
+      if (langRef.current && !langRef.current.contains(event.target)) {
+        setLangOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+}, []);
   const handleLanguageChange = (lang) => {
     let label = "Translate";
     if (lang === "en") label = "English";
@@ -23,19 +51,18 @@ const Navbar = ({ setPage }) => {
       <div className="logo">EnteMLA</div>
 
       {/* NAV LINKS */}
-      <ul className="nav-links">
-        <li><button onClick={() => setPage("home")}>Home</button></li>
-        <li><button>Complaints</button></li>
-        <li><button>Q/A</button></li>
-        <li><button>How It Works</button></li>
-        <li><button>About</button></li>
-        <li><button>Contact</button></li>
-      </ul>
+      <div className="nav-links">
+        <button><Link to="/">Home</Link></button>
+        <button><Link to="/citizen">Complaints</Link></button>
+        <button><Link to="/qa">Q/A</Link></button>
+        <button><Link to="/about">About</Link></button>
+        <button><Link to="/contact">Contact</Link></button>
+      </div>
 
       {/* RIGHT SECTION */}
       <div className="right-section">
 
-        {/* 🌐 TRANSLATE */}
+        {/* TRANSLATE */}
         <div className="translate-container">
           <button
             className="translate-btn"
@@ -53,38 +80,41 @@ const Navbar = ({ setPage }) => {
           )}
         </div>
 
-        {/* 🔔 NOTIFICATION */}
+        {/* NOTIFICATION */}
         <button className="bell-btn">🔔</button>
 
+        {/* LOGIN DROPDOWN */}
+        <div className="translate-container" ref={loginRef}>
+          <button
+            className="login"
+            onClick={() => setAuthOpen(!authOpen)}
+          >
+            🔐 Login
+          </button>
+
+          {authOpen && (
+            <div className="translate-menu">
+              <Link to="/c">👤 Citizen</Link>
+              <Link to="/mla">🏛️ MLA</Link>
+              <Link to="/employee">👨‍💼 Employee</Link>
+            </div>
+          )}
+        </div>
         
-<div className="translate-container">
-  <button
-    className="login"
-    onClick={() => setAuthOpen(!authOpen)}
-  >
-    🔐 Login 
-  </button>
-
-    {authOpen && (
-      <div className="translate-menu">
-        <div onClick={() => setPage("citizen")}>
-          👤 Citizen Login
-        </div>
-
-        <div onClick={() => setPage("mla")}>
-          🏛️ MLA Login
-        </div>
-
-        <div onClick={() => setPage("employee")}>
-          👨‍💼 Employee Login
-        </div>
-      </div>
-    )}
-</div>
-
-        {/* REGISTER */}
-        <button className="register">🔐Register</button>
-
+          <div className="translate-container" ref={registerRef}>
+          <button
+            className="register"
+            onClick={() => setRegisterOpen(!registerOpen)}
+          >
+            🔐 Register
+          </button>
+          {registerOpen && (
+            <div className="translate-menu">
+              <Link to="/register/citizen">👤 Citizen</Link>
+              <Link to="/register/employee">👨‍💼 Employee</Link>
+            </div>
+          )}
+          </div>
       </div>
     </nav>
   );

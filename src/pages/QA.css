@@ -1,0 +1,76 @@
+.qa-page {
+  font-family: "Segoe UI", sans-serif;
+  background: #f5f7fb;
+}
+
+/* HERO */
+.qa-hero {
+  background: linear-gradient(135deg, #1e3c72, #2563eb);
+  color: white;
+  text-align: center;
+  padding: 70px 20px;
+}
+
+.qa-hero h1 {
+  font-size: 40px;
+}
+
+/* INPUT AREA */
+.qa-input-box {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+.qa-input-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.ask-box {
+  display: flex;
+  gap: 10px;
+}
+
+.ask-box button {
+  padding: 1px 20px;
+  height: 38px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* LIST */
+.qa-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.qa-card {
+  background: white;
+  padding: 18px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+/* ACTIONS */
+.qa-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.qa-actions button {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #e8f0ff;
+}

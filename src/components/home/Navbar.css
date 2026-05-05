@@ -27,8 +27,8 @@
 /* NAV LINKS */
 .nav-links {
   display: flex;
-  gap: 20px;
-  list-style: none;
+  gap: 30px;
+  text-size-adjust: 15;
 }
 
 .nav-links button {
@@ -94,7 +94,16 @@
   background: #f0f9ff;
   color: #0a66c2;
 }
+.translate-menu a {
+  display: block;
+  padding: 8px 10px;
+  text-decoration: none;
+  color: black;
+}
 
+.translate-menu a:hover {
+  background: #f0f0f0;
+}
 /* BELL */
 .bell-btn {
   background: none;
@@ -111,7 +120,7 @@
 /* LOGIN BUTTON */
 .login {
   background: linear-gradient(135deg, #0a66c2, #004182);
-  color: white;
+  color: rgb(255, 249, 249);
   border: none;
   padding: 6px 14px;
   border-radius: 8px;
@@ -122,7 +131,7 @@
 .login:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(10,102,194,0.3);
-  background: #f0f9ff;
+  background: #c5daf0;
   color: #0a66c2;
 }
 .auth-btn {
@@ -145,6 +154,8 @@
 }
 
 .register:hover {
+  background: #c5daf0;
+  color: #0a66c2;
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(10,102,194,0.3);
 }
