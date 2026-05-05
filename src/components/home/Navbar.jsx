@@ -1,11 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
 
 const Navbar = () => {
-  const { user, login, logout } = useAuth();
-
   const [langOpen, setLangOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState("Translate");
   const [authOpen, setAuthOpen] = useState(false);
@@ -13,8 +10,8 @@ const Navbar = () => {
 
   const loginRef = useRef();
   const registerRef = useRef();
-  const langRef = useRef(); // ✅ now used properly
-
+  const langRef = useRef();
+  
   useEffect(() => {
     const handleClickOutside = (event) => {
 
@@ -36,8 +33,7 @@ const Navbar = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
-
+}, []);
   const handleLanguageChange = (lang) => {
     let label = "Translate";
     if (lang === "en") label = "English";
@@ -56,26 +52,18 @@ const Navbar = () => {
 
       {/* NAV LINKS */}
       <div className="nav-links">
-        <Link to="/">Home</Link>
-
-        {/* citizen-only links */}
-        {user?.role === "citizen" && (
-          <>
-            <Link to="/citizen">My Complaints</Link>
-            <Link to="/track">Track Complaint</Link>
-          </>
-        )}
-
-        <Link to="/qa">Q/A</Link>
-        <Link to="/about">About</Link>
-        <Link to="/contact">Contact</Link>
+        <button><Link to="/">Home</Link></button>
+        <button><Link to="/complaints">Complaints</Link></button>
+        <button><Link to="/qa">Q/A</Link></button>
+        <button><Link to="/about">About</Link></button>
+        <button><Link to="/contact">Contact</Link></button>
       </div>
 
       {/* RIGHT SECTION */}
       <div className="right-section">
 
-        {/* 🌐 LANGUAGE */}
-        <div className="translate-container" ref={langRef}>
+        {/* TRANSLATE */}
+        <div className="translate-container">
           <button
             className="translate-btn"
             onClick={() => setLangOpen(!langOpen)}
@@ -84,7 +72,7 @@ const Navbar = () => {
           </button>
 
           {langOpen && (
-            <div className="translate-menu">
+            <div className="translate-menu" ref={langRef}>
               <div onClick={() => handleLanguageChange("en")}>English</div>
               <div onClick={() => handleLanguageChange("ml")}>Malayalam</div>
               <div onClick={() => handleLanguageChange("hi")}>Hindi</div>
@@ -92,55 +80,41 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* 🔔 NOTIFICATION */}
+        {/* NOTIFICATION */}
         <button className="bell-btn">🔔</button>
 
-        {/* 🔐 AUTH SECTION */}
-        {!user ? (
-          <>
-            {/* LOGIN */}
-            <div className="translate-container" ref={loginRef}>
-              <button
-                className="login"
-                onClick={() => setAuthOpen(!authOpen)}
-              >
-                🔐 Login
-              </button>
+        {/* LOGIN DROPDOWN */}
+        <div className="translate-container" ref={loginRef}>
+          <button
+            className="login"
+            onClick={() => setAuthOpen(!authOpen)}
+          >
+            🔐 Login
+          </button>
 
-              {authOpen && (
-                <div className="translate-menu">
-                  <Link onClick={() => login("citizen")}>👤 Citizen</Link>
-                  <Link onClick={() => login("mla")}>🏛️ MLA</Link>
-                  <Link onClick={() => login("employee")}>👨‍💼 Employee</Link>
-                </div>
-              )}
+          {authOpen && (
+            <div className="translate-menu">
+              <Link to="/citizen">👤 Citizen</Link>
+              <Link to="/mla">🏛️ MLA</Link>
+              <Link to="/employee">👨‍💼 Employee</Link>
             </div>
-
-            {/* REGISTER */}
-            <div className="translate-container" ref={registerRef}>
-              <button
-                className="register"
-                onClick={() => setRegisterOpen(!registerOpen)}
-              >
-                🔐 Register
-              </button>
-
-              {registerOpen && (
-                <div className="translate-menu">
-                  <Link to="/register/citizen">👤 Citizen</Link>
-                  <Link to="/register/employee">👨‍💼 Employee</Link>
-                </div>
-              )}
+          )}
+        </div>
+        
+          <div className="translate-container" ref={registerRef}>
+          <button
+            className="register"
+            onClick={() => setRegisterOpen(!registerOpen)}
+          >
+            🔐 Register
+          </button>
+          {registerOpen && (
+            <div className="translate-menu">
+              <Link to="/register/citizen">👤 Citizen</Link>
+              <Link to="/register/employee">👨‍💼 Employee</Link>
             </div>
-          </>
-        ) : (
-          /* 👤 PROFILE SECTION */
-          <div className="profile">
-            <span>👤 {user.name}</span>
-            <button onClick={logout}>Logout</button>
+          )}
           </div>
-        )}
-
       </div>
     </nav>
   );
