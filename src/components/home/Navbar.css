@@ -122,8 +122,18 @@
 .login:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 15px rgba(10,102,194,0.3);
+  background: #f0f9ff;
+  color: #0a66c2;
 }
-
+.auth-btn {
+  background: linear-gradient(135deg, #0a66c2, #004182);
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.25s;
+}
 .register {
   background: linear-gradient(135deg, #0a66c2, #004182);
   color: white;
