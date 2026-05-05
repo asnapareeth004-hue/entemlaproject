@@ -7,6 +7,7 @@ import AuthPage from "./pages/AuthPage";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import QA from "./pages/QA";
+import Complaint from "./pages/Complaint";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/About" element={<About />} />
           <Route path="/QA" element={<QA />} />
+          <Route path="/Complaint" element={<Complaint />} />
         </Routes>
 
       </div>

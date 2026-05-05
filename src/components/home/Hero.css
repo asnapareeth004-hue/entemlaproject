@@ -188,7 +188,7 @@
 .highlight {
   border-left: 5px solid #16a34a;
   background: linear-gradient(
-    rgba(241, 242, 239, 0),
+    rgba(127, 193, 5, 0),
     rgba(210, 242, 178, 0.852)
   );
 }
@@ -210,6 +210,6 @@
 }
 
 .resolved {
-  color: #068429;
+  color: #86c598;
   font-weight: 600;
 }

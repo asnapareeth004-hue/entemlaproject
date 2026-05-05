@@ -1,0 +1,97 @@
+.control-dashboard {
+  padding: 20px;
+  background: #f4f6f9;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.header {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.stats {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.stats div {
+  flex: 1;
+  background: #f8f9ff;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* BODY */
+.body {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 20px;
+}
+
+/* QUEUE */
+.queue {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.item:hover {
+  background: #f5f8ff;
+}
+
+.active {
+  background: #eaf2ff;
+}
+
+/* FILE */
+.file {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.section {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+/* PROGRESS BAR */
+.bar {
+  width: 100%;
+  height: 8px;
+  background: #eee;
+  border-radius: 10px;
+}
+
+.bar div {
+  height: 8px;
+  background: #2d6cdf;
+  border-radius: 10px;
+}
+
+/* STATUS DOT */
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.in-progress { background: orange; }
+.resolved { background: green; }
+.pending { background: red; }

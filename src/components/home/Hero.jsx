@@ -1,8 +1,10 @@
 import React from "react";
 import "./Hero.css";
 import mlaImage from "../../assets/mla.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
     <div className="hero">
 
@@ -46,8 +48,10 @@ const Hero = () => {
           </div>
 
           {/* BUTTON */}
-          <button className="primary-btn">
-            Explore Work →
+          <button className="primary-btn"
+            onClick={() => navigate("/about")}
+          >
+            About Us →
           </button>
 
         </div>
@@ -76,8 +80,8 @@ const Hero = () => {
         <div className="info-box highlight">
           <h3>📢 Recent Issues</h3>
           <ul>
-            <li>Street light – <span className="pending">Pending</span></li>
-            <li>Water issue – <span className="resolved">Resolved</span></li>
+            <li>Street light - <span className="pending">Pending</span></li>
+            <li>Water issue - <span className="resolved">Resolved</span></li>
           </ul>
         </div>
 

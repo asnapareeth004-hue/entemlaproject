@@ -53,9 +53,9 @@ const Navbar = () => {
       {/* NAV LINKS */}
       <div className="nav-links">
         <button><Link to="/">Home</Link></button>
-        <button><Link to="/complaints">Complaints</Link></button>
-        <button><Link to="/qa">Q/A</Link></button>
         <button><Link to="/about">About</Link></button>
+        <button><Link to="/complaint">Complaints</Link></button>
+        <button><Link to="/qa">Q/A</Link></button>
         <button><Link to="/contact">Contact</Link></button>
       </div>
 
