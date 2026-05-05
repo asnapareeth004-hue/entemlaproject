@@ -1,13 +1,16 @@
 import React from "react";
+
+
 import "./App.css";
-import AuthPage from "./pages/AuthPage";
+
+import CitizenDashboard from "./pages/CitizenDashboard";
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <AuthPage />
-    </div>
-  );
+  return <CitizenDashboard />;
 }
+
+
 
 export default App;

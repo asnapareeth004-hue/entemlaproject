@@ -1,9 +1,26 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import RoleSelector from "../components/auth/RoleSelector";
 
 const AuthPage = () => {
   const [selectedRole, setSelectedRole] = useState(null);
   const [mode, setMode] = useState("login");
+  const navigate = useNavigate();
+
+  const handleContinue = () => {
+    if (!selectedRole) return;
+
+    if (selectedRole === "Citizen") {
+      navigate("/citizen");
+    } 
+    else if (selectedRole === "MLA") {
+      navigate("/mla");
+    } 
+    else if (selectedRole === "Employee") {
+      navigate("/employee");
+    }
+  };
+
 
   return (
     <div className="auth-layout">
