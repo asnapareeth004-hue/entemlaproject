@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -9,22 +8,37 @@ import Contact from "./pages/Contact";
 import About from "./pages/About";
 import QA from "./pages/QA";
 
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+
 function App() {
   return (
-    <Router>
-      <div className="App">
+    <AuthProvider>
+      <Router>
 
         <Routes>
+
           <Route path="/" element={<Home />} />
-          <Route path="/auth" element={<AuthPage />} />
-          <Route path="/citizen" element={<CitizenDashboard />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/About" element={<About />} />
-          <Route path="/QA" element={<QA />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/qa" element={<QA />} />
+
+          {/* 🔐 PROTECTED ROUTE (CITIZEN ONLY) */}
+          <Route
+            path="/citizen"
+            element={
+              <ProtectedRoute role="citizen">
+                <CitizenDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/auth" element={<AuthPage />} />
+
         </Routes>
 
-      </div>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
 
