@@ -9,10 +9,6 @@ const AuthPage = () => {
     <div className="auth-layout">
       
       {/* LEFT SIDE */}
-      <div className="auth-left">
-        <h1>Home Page Area</h1>
-        <p>This is for your friend</p>
-        </div>
         <div className="auth-right">
          <h2>Select role</h2>
          
