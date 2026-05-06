@@ -184,38 +184,24 @@ export default function MlaComplaintDashboard() {
       </div>
     </div>
   );
-  const updateStatus = async (newStatus) => {
+ const updateStatus = (newStatus) => {
   if (!selectedComplaint) return;
 
-  try {
-    const res = await fetch(
-      `http://localhost:5000/api/complaints/${selectedComplaint.id}`,
-      {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: newStatus }),
-      }
-    );
+  // update complaints list
+  setComplaints(prev =>
+    prev.map(c =>
+      c.id === selectedComplaint.id
+        ? { ...c, status: newStatus }
+        : c
+    )
+  );
 
-    const updated = await res.json();
-
-    setComplaints(prev =>
-      prev.map(c =>
-        c.id === selectedComplaint.id
-          ? { ...c, status: newStatus }
-          : c
-      )
-    );
-
-    setSelectedComplaint(prev => ({
-      ...prev,
-      status: newStatus
-    }));
-  } catch (err) {
-    console.error("Update failed:", err);
-  }
+  // update right panel
+  setSelectedComplaint(prev => ({
+    ...prev,
+    status: newStatus
+  }));
 };
-
 
   return (
     <div style={{ minHeight: "100vh", background: clr.bg, padding: "24px 28px", fontFamily: "'DM Sans','Segoe UI',sans-serif", fontSize: 14, color: clr.text }}>

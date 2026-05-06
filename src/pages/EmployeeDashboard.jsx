@@ -81,7 +81,8 @@ export default function EmployeeComplaintDashboard() {
   const [statusFilter, setStatusFilter] = useState("");
   const [sortBy, setSortBy] = useState("urgency");
   const [sortOrder, setSortOrder] = useState("asc");
-
+  const [replies, setReplies] = useState({});
+const [sentStatus, setSentStatus] = useState({});
   useEffect(() => {
     fetch("http://localhost:5000/api/users")
       .then(r => r.json())
@@ -145,7 +146,11 @@ export default function EmployeeComplaintDashboard() {
     { key: "urgency",  label: "Urgency" },
     { key: "status",   label: "Status" },
     { key: "date",     label: "Date" },
+    { key: "reply", label: "Reply" }
   ];
+  const handleReplyChange = (id, value) => {
+  setReplies(prev => ({ ...prev, [id]: value }));
+};
 
   return (
     <div style={{ minHeight: "100vh", background: "#F8FAFC", fontFamily: "'DM Sans', 'Segoe UI', sans-serif", padding: "28px 32px" }}>
@@ -231,12 +236,13 @@ export default function EmployeeComplaintDashboard() {
       }}>
         <table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed" }}>
           <colgroup>
-            <col style={{ width: "18%" }} />
-            <col style={{ width: "24%" }} />
-            <col style={{ width: "14%" }} />
+            <col style={{ width: "12%" }} />
+            <col style={{ width: "20%" }} />
+            <col style={{ width: "12%" }} />
             <col style={{ width: "11%" }} />
             <col style={{ width: "13%" }} />
             <col style={{ width: "12%" }} />
+            <col style={{ width: "18" }} /> 
           </colgroup>
           <thead>
             <tr style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
@@ -256,6 +262,7 @@ export default function EmployeeComplaintDashboard() {
                     {col.key && <SortIcon active={sortBy === col.key} direction={sortOrder} />}
                   </span>
                 </th>
+                
               ))}
             </tr>
           </thead>
@@ -311,6 +318,68 @@ export default function EmployeeComplaintDashboard() {
                 <td style={{ padding: "12px 16px" }}>
                   <span style={{ fontSize: 12, color: "#94A3B8", fontWeight: 500 }}>{c.date}</span>
                 </td>
+                {/* Reply */}
+<td style={{ padding: "12px 16px" }}>
+  <div style={{ display: "flex", gap: 6 }}>
+    <input
+      type="text"
+      placeholder="Send reply..."
+      value={replies[c.id] || ""}
+      onChange={(e) => handleReplyChange(c.id, e.target.value)}
+      style={{
+        flex: 1,
+        padding: "6px 8px",
+        border: "1px solid #E2E8F0",
+        borderRadius: 6,
+        fontSize: 12,
+        outline: "none",
+        background: "#F8FAFC"
+      }}
+    />
+   <button
+  onClick={() => {
+    if (!replies[c.id]) return;
+
+    setSentStatus(prev => ({
+      ...prev,
+      [c.id]: "Sent successfully ✅"
+    }));
+
+    console.log("Reply sent:", c.id, replies[c.id]);
+
+    // clear input
+    setReplies(prev => ({
+      ...prev,
+      [c.id]: ""
+    }));
+
+    setTimeout(() => {
+      setSentStatus(prev => ({
+        ...prev,
+        [c.id]: ""
+      }));
+    }, 2000);
+  }}
+      style={{
+        padding: "6px 10px",
+        fontSize: 12,
+        background: "#2563EB",
+        color: "#fff",
+        border: "none",
+        borderRadius: 6,
+        cursor: "pointer"
+      }}
+    >
+      Send
+    </button>
+  </div>
+   {/* 👇 ADD THIS HERE (THIS IS WHAT YOU ASKED) */}
+  {sentStatus[c.id] && (
+    <p style={{ fontSize: 11, color: "green", marginTop: 4 }}>
+      {sentStatus[c.id]}
+    </p>
+  )}
+</td>
               </tr>
             ))}
           </tbody>
