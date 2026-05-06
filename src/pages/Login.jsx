@@ -14,17 +14,17 @@ export default function LoginPage() {
 
   const credentials = {
     citizen: {
-      email: "citizen@app.com",
+      email: "citizen@gmail.com",
       password: "1234",
       route: "/citizen",
     },
     mla: {
-      email: "mla@app.com",
+      email: "mla@gmail.com",
       password: "5678",
       route: "/mla",
     },
     employee: {
-      email: "employee@app.com",
+      email: "employee@gmail.com",
       password: "9999",
       route: "/employee",
     },
