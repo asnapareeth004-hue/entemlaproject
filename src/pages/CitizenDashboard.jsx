@@ -393,43 +393,7 @@ const newComplaint = {
     )}
   </div>
 
-  {/* Demo Send Button */}
-  <button
-    onClick={(e) => {
-      e.stopPropagation();
-
-      const msg = prompt("Enter update (e.g. delayed due to rain)");
-      if (!msg) return;
-
-      setComplaints(prev =>
-        prev.map(item =>
-          item.id === c.id
-            ? {
-                ...item,
-                replies: [
-                  ...(item.replies || []),
-                  {
-                    text: msg,
-                    from: "Employee",
-                    date: new Date().toLocaleDateString(),
-                  },
-                ],
-              }
-            : item
-        )
-      );
-    }}
-    style={{
-      fontSize: 10,
-      padding: "3px 8px",
-      borderRadius: 5,
-      border: "none",
-      background: "#E2E8F0",
-      cursor: "pointer"
-    }}
-  >
-    + Add reply
-  </button>
+  
 </div>
 
                 </div>
