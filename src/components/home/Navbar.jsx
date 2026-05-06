@@ -53,6 +53,8 @@ const Navbar = () => {
       {/* NAV LINKS */}
       <div className="nav-links">
         <button><Link to="/">Home</Link></button>
+        <button><Link to="/login">Complaints</Link></button>
+        <button><Link to="/qa">Q/A</Link></button>
         <button><Link to="/about">About</Link></button>
         <button><Link to="/complaint">Complaints</Link></button>
         <button><Link to="/qa">Q/A</Link></button>
@@ -94,9 +96,12 @@ const Navbar = () => {
 
           {authOpen && (
             <div className="translate-menu">
-              <Link to="/citizen">👤 Citizen</Link>
-              <Link to="/mla">🏛️ MLA</Link>
-              <Link to="/employee">👨‍💼 Employee</Link>
+              <Link to="/login"
+  onClick={() => localStorage.setItem("role", "citizen")}>👤 Citizen</Link>
+              <Link to="/login"
+  onClick={() => localStorage.setItem("role", "mla")}>🏛️ MLA</Link>
+              <Link to="/login"
+  onClick={() => localStorage.setItem("role", "employee")}>👨‍💼 Employee</Link>
             </div>
           )}
         </div>

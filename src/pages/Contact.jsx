@@ -45,7 +45,7 @@ const Contact = () => {
                 File official complaints related to infrastructure, safety, and public services.
               </p>
 
-              <button onClick={() => navigate("/complaint/new")}>
+              <button onClick={() => navigate("/login")}>
                 Submit Complaint →
               </button>
             </div>
@@ -62,7 +62,7 @@ const Contact = () => {
                 View live status updates using your tracking ID.
               </p>
 
-              <button onClick={() => navigate("/complaint/track")}>
+              <button onClick={() => navigate("/login")}>
                 Track Status →
               </button>
             </div>
