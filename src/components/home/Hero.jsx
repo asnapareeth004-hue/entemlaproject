@@ -17,8 +17,7 @@ const Hero = () => {
             Your Voice. <span>Real Change.</span>
           </h1>
           <p>
-            Report issues, track progress, and stay connected with your MLA —
-            all in one transparent platform.
+            Report issues, track progress, and stay connected with your MLA 
           </p>
         </div>
 

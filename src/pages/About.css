@@ -1,17 +1,29 @@
 .about-page {
   font-family: "Segoe UI", sans-serif;
-  background: #f5f7fb;
+  background: white;
   color: #1f2937;
+  min-height: 100vh; 
 }
 
 /* HERO */
 .about-hero {
-  background: linear-gradient(135deg, #1e3c72, #2563eb);
-  color: white;
-  text-align: center;
-  padding: 80px 20px;
-}
+  background: 
+    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    url("../assets/bg3.png");
 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  color: white;
+}
+.about-hero {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
 .about-hero h1 {
   font-size: 40px;
   margin-bottom: 10px;
@@ -19,11 +31,22 @@
 
 /* CONTAINER */
 .about-container {
-  max-width: 900px;
+  max-width: auto;
   margin: auto;
+  background:rgb(220, 242, 208);
   padding: 50px 20px;
 }
+.about-image-section {
+  width: 100%;
+  margin-top: 30px;
+}
 
+.about-image-section img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
 .mla-profile {
   display: flex;
   gap: 20px;

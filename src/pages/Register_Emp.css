@@ -1,0 +1,142 @@
+.register-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #e3ecff, #f7f9fc);
+}
+
+.register-card {
+  width: 400px;
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.register-card h2 {
+  margin-bottom: 5px;
+}
+
+.register-card p {
+  margin-bottom: 20px;
+  color: gray;
+}
+
+.register-card input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.phone-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.phone-row input {
+  flex: 1;
+}
+
+.phone-row button {
+  padding: 10px;
+  background: #2d6cdf;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
+.password-row {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin: 8px 0;
+}
+
+.password-row input {
+  border: none;
+  flex: 1;
+}
+
+.password-row span {
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.terms {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.terms input {
+  margin-right: 8px;
+}
+
+.register-btn {
+  width: 100%;
+  padding: 12px;
+  background: #2d6cdf;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.timer {
+  font-size: 12px;
+  color: red;
+  text-align: left;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+}
+
+.popup button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: #2d6cdf;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.otp-msg {
+  font-size: 13px;
+  margin-top: 4px;
+  text-align: left;
+}
+
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
+}

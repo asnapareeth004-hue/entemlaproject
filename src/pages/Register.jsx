@@ -3,6 +3,8 @@ import "./Register.css";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -14,32 +16,29 @@ const Register = () => {
     confirmPassword: ""
   });
 
-  const navigate = useNavigate();
   const [otpSent, setOtpSent] = useState(false);
   const [emailOtpSent, setEmailOtpSent] = useState(false);
 
   const [phoneTimer, setPhoneTimer] = useState(30);
   const [emailTimer, setEmailTimer] = useState(30);
 
+  const [phoneVerified, setPhoneVerified] = useState(false);
+  const [emailVerified, setEmailVerified] = useState(false);
+
+  const [phoneMsg, setPhoneMsg] = useState("");
+  const [emailMsg, setEmailMsg] = useState("");
+
   const [showPassword, setShowPassword] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
-  const [phoneVerified, setPhoneVerified] = useState(false);
-  const [emailVerified, setEmailVerified] = useState(false);
-  
-  const [phoneMsg, setPhoneMsg] = useState("");
-  const [emailMsg, setEmailMsg] = useState("");
-  // ✅ Handle input change
+  // Handle input
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // 📱 Send Phone OTP
+  // Phone OTP
   const sendPhoneOtp = () => {
-    if (!form.phone) {
-      alert("Enter phone number");
-      return;
-    }
+    if (!form.phone) return alert("Enter phone number");
 
     setOtpSent(true);
     let count = 30;
@@ -47,17 +46,13 @@ const Register = () => {
     const interval = setInterval(() => {
       count--;
       setPhoneTimer(count);
-
       if (count === 0) clearInterval(interval);
     }, 1000);
   };
 
-  // 📧 Send Email OTP
+  // Email OTP
   const sendEmailOtp = () => {
-    if (!form.email) {
-      alert("Enter email");
-      return;
-    }
+    if (!form.email) return alert("Enter email");
 
     setEmailOtpSent(true);
     let count = 30;
@@ -65,147 +60,157 @@ const Register = () => {
     const interval = setInterval(() => {
       count--;
       setEmailTimer(count);
-
       if (count === 0) clearInterval(interval);
     }, 1000);
   };
 
-  // ✅ Submit form (ONLY ONE FUNCTION)
+  // Submit
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!phoneVerified || !emailVerified) {
+      alert("Verify phone and email first");
+      return;
+    }
 
     if (form.password !== form.confirmPassword) {
       alert("Passwords do not match");
       return;
     }
 
-    setShowPopup(true); // ✅ show popup
-    console.log("Form Data:", form);
+    setShowPopup(true);
+    console.log(form);
   };
 
   return (
     <div className="register-container">
       <div className="register-card">
-        <h2>Create Your Account</h2>
-        <p>Fill in the details below to get started</p>
+
+        <h2>Create Account </h2>
+        <p>Track complaints easily and stay updated</p>
 
         <form onSubmit={handleSubmit}>
 
           {/* Name */}
-          <input
-            type="text"
-            name="name"
-            placeholder="Full Name"
-            onChange={handleChange}
-            required
-          />
-
-          {/* 📱 Phone */}
-          <div className="phone-row">
+          <div className="input-group">
+            <span>👤</span>
             <input
               type="text"
-              name="phone"
-              placeholder="Phone Number"
+              name="name"
+              placeholder="Full Name"
               onChange={handleChange}
               required
             />
-            <button type="button" onClick={sendPhoneOtp}>
+          </div>
+
+          {/* Phone */}
+          <div className="otp-group">
+            <div className="input-group">
+              <span>📱</span>
+              <input
+                type="text"
+                name="phone"
+                placeholder="Phone Number"
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <button type="button" className="otp-btn" onClick={sendPhoneOtp}>
               {otpSent ? "Resend" : "Send OTP"}
             </button>
           </div>
 
-          {/* Phone OTP */}
           {otpSent && (
-            <>
-                <div className="phone-row">
-                <input
-                    type="text"
-                    name="otp"
-                    placeholder="Enter Phone OTP"
-                    onChange={handleChange}
-                />
-                <button
-                    type="button"
-                    onClick={() => {
-                    if (form.otp === "1234") {
-                        setPhoneVerified(true);
-                        setPhoneMsg("✔ Phone Verified");
-                    } else {
-                        setPhoneVerified(false);
-                        setPhoneMsg("✖ Invalid OTP");
-                    }
-                    }}
-                >
-                    Verify
-                </button>
-                </div>
-
-                <p className={`otp-msg ${phoneVerified ? "success" : "error"}`}>
+            <div className="otp-box">
+              <input
+                type="text"
+                name="otp"
+                placeholder="Enter OTP"
+                onChange={handleChange}
+              />
+              <button
+                type="button"
+                className="verify-btn"
+                onClick={() => {
+                  if (form.otp === "1234") {
+                    setPhoneVerified(true);
+                    setPhoneMsg("✔ Phone Verified");
+                  } else {
+                    setPhoneVerified(false);
+                    setPhoneMsg("✖ Invalid OTP");
+                  }
+                }}
+              >
+                Verify
+              </button>
+              <p className={phoneVerified ? "success" : "error"}>
                 {phoneMsg}
-                </p>
+              </p>
+              <small>{phoneTimer}s remaining</small>
+            </div>
+          )}
 
-                <p className="timer">Time left: {phoneTimer}s</p>
-            </>
-            )}
-
-          {/* 📧 Email */}
-          <div className="phone-row">
-            <input
-              type="email"
-              name="email"
-              placeholder="Email ID (optional)"
-              onChange={handleChange}
-            />
-            <button type="button" onClick={sendEmailOtp}>
+          {/* Email */}
+          <div className="otp-group">
+            <div className="input-group">
+              <span>📧</span>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                onChange={handleChange}
+              />
+            </div>
+            <button type="button" className="otp-btn" onClick={sendEmailOtp}>
               {emailOtpSent ? "Resend" : "Send OTP"}
             </button>
           </div>
 
-          {/* Email OTP */}
           {emailOtpSent && (
-            <>
-                <div className="phone-row">
-                <input
-                    type="text"
-                    name="emailOtp"
-                    placeholder="Enter Email OTP"
-                    onChange={handleChange}
-                />
-                <button
-                    type="button"
-                    onClick={() => {
-                    if (form.emailOtp === "1234") {
-                        setEmailVerified(true);
-                        setEmailMsg("✔ Email Verified");
-                    } else {
-                        setEmailVerified(false);
-                        setEmailMsg("✖ Invalid OTP");
-                    }
-                    }}
-                >
-                    Verify
-                </button>
-                </div>
-
-                <p className={`otp-msg ${emailVerified ? "success" : "error"}`}>
+            <div className="otp-box">
+              <input
+                type="text"
+                name="emailOtp"
+                placeholder="Enter Email OTP"
+                onChange={handleChange}
+              />
+              <button
+                type="button"
+                className="verify-btn"
+                onClick={() => {
+                  if (form.emailOtp === "1234") {
+                    setEmailVerified(true);
+                    setEmailMsg("✔ Email Verified");
+                  } else {
+                    setEmailVerified(false);
+                    setEmailMsg("✖ Invalid OTP");
+                  }
+                }}
+              >
+                Verify
+              </button>
+              <p className={emailVerified ? "success" : "error"}>
                 {emailMsg}
-                </p>
-
-                <p className="timer">Time left: {emailTimer}s</p>
-            </>
-            )}
+              </p>
+              <small>{emailTimer}s remaining</small>
+            </div>
+          )}
 
           {/* Place */}
-          <input
-            type="text"
-            name="place"
-            placeholder="Place / City"
-            onChange={handleChange}
-            required
-          />
+          <div className="input-group">
+            <span>📍</span>
+            <input
+              type="text"
+              name="place"
+              placeholder="Your Location"
+              onChange={handleChange}
+              required
+            />
+          </div>
 
           {/* Password */}
-          <div className="password-row">
+          <div className="input-group">
+            <span>🔒</span>
             <input
               type={showPassword ? "text" : "password"}
               name="password"
@@ -213,36 +218,45 @@ const Register = () => {
               onChange={handleChange}
               required
             />
-            <span onClick={() => setShowPassword(!showPassword)}>
+            <span
+              className="eye"
+              onClick={() => setShowPassword(!showPassword)}
+            >
               👁
             </span>
           </div>
 
           {/* Confirm Password */}
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            onChange={handleChange}
-            required
-          />
+          <div className="input-group">
+            <span>🔑</span>
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-          {/* Submit */}
           <button type="submit" className="register-btn">
-            Register
+            Create Account
           </button>
+
         </form>
 
-        {/* ✅ Popup OUTSIDE form */}
+        {/* Popup */}
         {showPopup && (
           <div className="popup-overlay">
             <div className="popup">
-              <h2> Registration Successful!</h2>
+              <h2>🎉 Success!</h2>
               <p>Your account has been created successfully.</p>
-              <button onClick={() => {setShowPopup(false);
-                navigate("/");
-              }}>
-                OK
+              <button
+                onClick={() => {
+                  setShowPopup(false);
+                  navigate("/");
+                }}
+              >
+                Continue
               </button>
             </div>
           </div>

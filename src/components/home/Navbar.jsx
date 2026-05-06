@@ -111,7 +111,7 @@ const Navbar = () => {
           {registerOpen && (
             <div className="translate-menu">
               <Link to="/Register">👤 Citizen</Link>
-              <Link to="/register/employee">👨‍💼 Employee</Link>
+              <Link to="/RegisterEmp">👨‍💼 Employee</Link>
             </div>
           )}
           </div>

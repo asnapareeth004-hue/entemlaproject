@@ -1,17 +1,29 @@
 .contact-page {
   font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(135deg,#f0f0f2, #131c9d);
+  background: linear-gradient(135deg,#fcfcfe, #eaf2dd);
   color: #010a15;
 }
 
 /* HERO */
+
 .contact-hero {
-  background: linear-gradient(135deg, #131c9d, #e5e5f5);
+  background: 
+    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    url("../assets/bg4.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
   color: white;
-  padding: 80px 20px;
+}
+.contact-hero {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
 }
-
 .hero-content h1 {
   font-size: 40px;
   margin-bottom: 10px;
@@ -38,7 +50,7 @@
 /* PANELS */
 .left-panel,
 .right-panel {
-  width: 450px;
+  width: auto;
 }
 
 /* SECTION TITLE */
@@ -57,7 +69,7 @@
   margin-bottom: 15px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.06);
   transition: 0.3s;
-  border-left: 5px solid #2563eb;
+  border-left: 5px solid #093fb4;
 }
 
 .action-card:hover {
@@ -71,7 +83,7 @@
 .action-card button {
   margin-top: 10px;
   padding: 8px 12px;
-  background: #2563eb;
+  background: #3e6ccf;
   color: white;
   border: none;
   border-radius: 8px;
@@ -85,7 +97,7 @@
   border-radius: 14px;
   margin-bottom: 15px;
   box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-  border-left: 5px solid #2563eb;
+  border-left: 5px solid #1342a8;
 }
 
 .mla-header {
@@ -127,5 +139,5 @@
 
 .dept-card span {
   font-size: 12px;
-  color: #2563eb;
+  color: #586788;
 }

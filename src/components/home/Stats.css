@@ -4,15 +4,16 @@
   gap: 20px;
   padding: 30px;
   align-items: center;
+  background: #effaf6;
 }
 
 /* CARD STYLE */
 .stat-card {
-  background: white;
+  background: rgb(244, 251, 242);
   padding: 20px;
   border-radius: 12px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(23, 76, 4, 0.212);
   transition: transform 0.2s ease;
 }
 
@@ -29,12 +30,12 @@
 /* LABEL */
 .stat-card p {
   font-size: 14px;
-  color: #666;
+  color: #2f2d2d;
 }
 
 /* COLORS (important for meaning) */
 .total h2 { color: #0a66c2; }
-.resolved h2 { color: #16a34a; }
+.resolved h2 { color: #04651c; }
 .progress h2 { color: #d97706; }
 .response h2 { color: #7c3aed; }
 

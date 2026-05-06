@@ -1,7 +1,7 @@
 import React from "react";
 import "./About.css";
 import Navbar from "../components/home/Navbar";
-
+import bgImage from "../assets/bg2.png";
 const About = () => {
   return (
     <div className="about-page">
@@ -15,7 +15,7 @@ const About = () => {
           A transparent digital platform connecting citizens with their elected representative.
         </p>
       </div>
-
+      
       {/* CONTENT */}
       <div className="about-container">
 
@@ -28,6 +28,7 @@ const About = () => {
             faster response, and accountability in governance.
           </p>
         </div>
+
         {/* MLA SECTION */}
         <div className="about-card">
 
@@ -124,6 +125,9 @@ const About = () => {
             To build a transparent, efficient, and accessible governance system where every
             citizen's voice is heard and acted upon without delay.
           </p>
+        </div>
+        <div className="about-image-section">
+          <img src={bgImage} alt="MLA Platform" />
         </div>
 
       </div>

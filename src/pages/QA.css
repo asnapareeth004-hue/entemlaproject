@@ -5,12 +5,23 @@
 
 /* HERO */
 .qa-hero {
-  background: linear-gradient(135deg, #1e3c72, #2563eb);
-  color: white;
-  text-align: center;
-  padding: 70px 20px;
-}
+  background: 
+    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    url("../assets/bg4.png");
 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  color: white;
+}
+.qa-hero {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
 .qa-hero h1 {
   font-size: 40px;
 }
@@ -47,7 +58,7 @@
 
 /* LIST */
 .qa-container {
-  max-width: 800px;
+  max-width: auto;
   margin: auto;
   padding: 20px;
 }

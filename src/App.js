@@ -8,6 +8,7 @@ import Contact from "./pages/Contact";
 import About from "./pages/About";
 import QA from "./pages/QA";
 import Register from "./pages/Register";
+import RegisterEmp from "./pages/Register_Emp";
 import Complaint from "./pages/Complaint";
 import CitizenDashboard from "./pages/CitizenDashboard";
 import EmployeeDashboard from "./pages/EmployeeDashboard";
@@ -26,6 +27,7 @@ function App() {
           <Route path="/About" element={<About />} />
           <Route path="/QA" element={<QA />} />
           <Route path="/Register" element={<Register />} />
+          <Route path="/RegisterEmp" element={<RegisterEmp />} />
           <Route path="/Complaint" element={<Complaint />} />
           <Route path="/citizen" element={<CitizenDashboard />} />
           <Route path="/employee" element={<EmployeeDashboard />} />
