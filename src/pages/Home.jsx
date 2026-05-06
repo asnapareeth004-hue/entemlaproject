@@ -11,7 +11,7 @@ const Home = () => {
     <div>
       <Navbar />
       <Hero />
-      <Stats />
+      <Stats/>
       <Trending />
       <button onClick={() =>  navigate("/role")}>
         Login / Get Started
