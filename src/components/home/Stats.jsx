@@ -10,7 +10,7 @@ const Stats = () => {
         <p>Total Complaints</p>
       </div>
 
-      <div className="stat-card resolved">
+      <div className="stat-card resolve">
         <h2>6245</h2>
         <p>Resolved</p>
       </div>
