@@ -83,7 +83,9 @@ export default function CitizenDashboard() {
   const [urgency, setUrgency] = useState("");
   const [details, setDetails] = useState("");
   const [visibility, setVisibility] = useState("");
+  
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const[file,setFile]=useState(null);
 
   useEffect(() => {
     fetch("http://localhost:5000/api/user")
@@ -111,23 +113,35 @@ export default function CitizenDashboard() {
     if (!details) newErrors.details = "Details are required";
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
-    try {
-      const res = await fetch("http://localhost:5000/api/complaints", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, category, urgency, details, visibility, userId: user._id }),
-      });
-      const data = await res.json();
-      setComplaints([{ ...data, id: data._id, date: new Date(data.date).toLocaleDateString(), color: "primary" }, ...complaints]);
-      setTitle(""); setCategory(""); setUrgency(""); setDetails(""); setVisibility(""); setErrors({});
-      setSubmitSuccess(true);
-      setTimeout(() => setSubmitSuccess(false), 3000);
-    } catch (err) { console.error(err); }
+const newComplaint = {
+      _id: Date.now().toString(),
+      id: Date.now().toString(),
+      title,
+      category,
+      urgency,
+      details,
+      visibility,
+      status: "pending", // Set a default status so StatusBadge works
+      userId: user?._id || "usr_123456",
+      date: new Date().toLocaleDateString(),
+      evidence: file ? file.name : null,
+      replies: [],
+    };
+    setComplaints(prev=>[newComplaint,...prev]);
+    setTitle(""); 
+    setCategory(""); 
+    setUrgency(""); 
+    setDetails(""); 
+    setVisibility(""); 
+    setErrors({});
+    setSubmitSuccess(true);
+    setFile(null);
+    setTimeout(() => setSubmitSuccess(false), 3000);
   };
 
-  const userId = user?._id;
+  
   const filteredComplaints = complaints.filter(c =>
-    c.userId === userId &&
+    
     ((c.title || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
      (c.id || "").toLowerCase().includes(searchQuery.toLowerCase()))
   );
@@ -222,6 +236,7 @@ export default function CitizenDashboard() {
                     <p style={{ fontSize: 12, color: clr.muted, margin: 0, lineHeight: 1.6 }}>{selectedComplaint.details}</p>
                   </div>
                 )}
+                const [replyText, setReplyText] = useState("");
               </div>
             ) : (
               <div style={{ textAlign: "center" }}>
@@ -300,8 +315,13 @@ export default function CitizenDashboard() {
                 <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
               </svg>
               Upload Evidence
-              <input hidden type="file" accept="image/*" />
+              <input hidden type="file" accept="image/*" onChange={(e)=>setFile(e.target.files[0])} />
             </label>
+            {file && (
+  <p style={{ fontSize: 12, color: "green", marginTop: 6 }}>
+    File selected: {file.name}
+  </p>
+)}
             <button type="submit" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "9px 24px", borderRadius: radius.sm, background: clr.primary, color: "#fff", fontSize: 13, fontWeight: 700, border: "none", cursor: "pointer", boxShadow: "0 2px 8px rgba(37,99,235,0.25)" }}>
               Submit Complaint
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -342,6 +362,76 @@ export default function CitizenDashboard() {
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <StatusBadge status={c.status} />
                   <span style={{ fontSize: 10, color: "#CBD5E1", fontWeight: 500 }}>#{(c.id || "").slice(-6).toUpperCase()}</span>
+ {c.evidence && (
+  <div style={{ fontSize: 11, color: "#16A34A", marginTop: 6 }}>
+    📎 {c.evidence}
+  </div>
+)}
+{/* 🔥 Updates / Replies Section */}
+<div style={{ marginTop: 10 }}>
+  <div style={{ fontSize: 10, fontWeight: 700, color: clr.hint, marginBottom: 4 }}>
+    Updates
+  </div>
+
+  {/* Show replies */}
+  <div style={{ maxHeight: 70, overflowY: "auto", marginBottom: 6 }}>
+    {c.replies && c.replies.length > 0 ? (
+      c.replies.map((r, i) => (
+        <div key={i} style={{
+          fontSize: 11,
+          background: "#F8FAFC",
+          border: `1px solid ${clr.border}`,
+          borderRadius: 6,
+          padding: "4px 6px",
+          marginBottom: 4
+        }}>
+          <strong>{r.from}:</strong> {r.text}
+        </div>
+      ))
+    ) : (
+      <span style={{ fontSize: 10, color: clr.hint }}>No updates</span>
+    )}
+  </div>
+
+  {/* Demo Send Button */}
+  <button
+    onClick={(e) => {
+      e.stopPropagation();
+
+      const msg = prompt("Enter update (e.g. delayed due to rain)");
+      if (!msg) return;
+
+      setComplaints(prev =>
+        prev.map(item =>
+          item.id === c.id
+            ? {
+                ...item,
+                replies: [
+                  ...(item.replies || []),
+                  {
+                    text: msg,
+                    from: "Employee",
+                    date: new Date().toLocaleDateString(),
+                  },
+                ],
+              }
+            : item
+        )
+      );
+    }}
+    style={{
+      fontSize: 10,
+      padding: "3px 8px",
+      borderRadius: 5,
+      border: "none",
+      background: "#E2E8F0",
+      cursor: "pointer"
+    }}
+  >
+    + Add reply
+  </button>
+</div>
+
                 </div>
               </div>
             ))}
