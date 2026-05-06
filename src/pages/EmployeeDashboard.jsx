@@ -82,7 +82,7 @@ export default function EmployeeComplaintDashboard() {
   const [sortBy, setSortBy] = useState("urgency");
   const [sortOrder, setSortOrder] = useState("asc");
   const [replies, setReplies] = useState({});
-
+const [sentStatus, setSentStatus] = useState({});
   useEffect(() => {
     fetch("http://localhost:5000/api/users")
       .then(r => r.json())
@@ -236,13 +236,13 @@ export default function EmployeeComplaintDashboard() {
       }}>
         <table style={{ width: "100%", borderCollapse: "collapse", tableLayout: "fixed" }}>
           <colgroup>
-            <col style={{ width: "18%" }} />
-            <col style={{ width: "24%" }} />
-            <col style={{ width: "14%" }} />
+            <col style={{ width: "12%" }} />
+            <col style={{ width: "20%" }} />
+            <col style={{ width: "12%" }} />
             <col style={{ width: "11%" }} />
             <col style={{ width: "13%" }} />
             <col style={{ width: "12%" }} />
-            <col style={{ width: "18%" }} /> 
+            <col style={{ width: "18" }} /> 
           </colgroup>
           <thead>
             <tr style={{ background: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
@@ -336,10 +336,30 @@ export default function EmployeeComplaintDashboard() {
         background: "#F8FAFC"
       }}
     />
-    <button
-      onClick={() => {
-        console.log("Reply sent:", c.id, replies[c.id]);
-      }}
+   <button
+  onClick={() => {
+    if (!replies[c.id]) return;
+
+    setSentStatus(prev => ({
+      ...prev,
+      [c.id]: "Sent successfully ✅"
+    }));
+
+    console.log("Reply sent:", c.id, replies[c.id]);
+
+    // clear input
+    setReplies(prev => ({
+      ...prev,
+      [c.id]: ""
+    }));
+
+    setTimeout(() => {
+      setSentStatus(prev => ({
+        ...prev,
+        [c.id]: ""
+      }));
+    }, 2000);
+  }}
       style={{
         padding: "6px 10px",
         fontSize: 12,
@@ -353,6 +373,12 @@ export default function EmployeeComplaintDashboard() {
       Send
     </button>
   </div>
+   {/* 👇 ADD THIS HERE (THIS IS WHAT YOU ASKED) */}
+  {sentStatus[c.id] && (
+    <p style={{ fontSize: 11, color: "green", marginTop: 4 }}>
+      {sentStatus[c.id]}
+    </p>
+  )}
 </td>
               </tr>
             ))}
