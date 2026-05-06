@@ -110,7 +110,7 @@ const Navbar = () => {
           </button>
           {registerOpen && (
             <div className="translate-menu">
-              <Link to="/register/citizen">👤 Citizen</Link>
+              <Link to="/Register">👤 Citizen</Link>
               <Link to="/register/employee">👨‍💼 Employee</Link>
             </div>
           )}
