@@ -38,6 +38,7 @@
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 8px;
+  color:black;
   border: 1px solid #ccc;
 }
 
@@ -50,7 +51,7 @@
   padding: 1px 20px;
   height: 38px;
   background: #2563eb;
-  color: white;
+  color: rgb(15, 14, 14);
   border: none;
   border-radius: 10px;
   cursor: pointer;

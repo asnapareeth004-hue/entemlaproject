@@ -11,47 +11,22 @@ const QA = () => {
       question: "How can I submit a complaint?",
       answer:
         "You can submit a complaint through the 'Complaint Portal' by providing details and selecting the category.",
-      likes: 0,
-      dislikes: 0,
-      comments: [],
     },
     {
       id: 2,
       question: "How long does it take to resolve a complaint?",
       answer:
         "Most complaints are addressed within 48 hours depending on severity and department workload.",
-      likes: 0,
-      dislikes: 0,
-      comments: [],
     },
     {
       id: 3,
       question: "Can I track my complaint status?",
       answer:
         "Yes, you can track your complaint using the unique tracking ID provided after submission.",
-      likes: 0,
-      dislikes: 0,
-      comments: [],
     },
   ]);
 
   const [newQuestion, setNewQuestion] = useState("");
-
-  const handleLike = (id) => {
-    setQaData(
-      qaData.map((item) =>
-        item.id === id ? { ...item, likes: item.likes + 1 } : item
-      )
-    );
-  };
-
-  const handleDislike = (id) => {
-    setQaData(
-      qaData.map((item) =>
-        item.id === id ? { ...item, dislikes: item.dislikes + 1 } : item
-      )
-    );
-  };
 
   const filteredQA = qaData.filter((item) =>
     item.question.toLowerCase().includes(search.toLowerCase())
@@ -64,9 +39,6 @@ const QA = () => {
       id: Date.now(),
       question: newQuestion,
       answer: "Your question is under review or will be answered soon.",
-      likes: 0,
-      dislikes: 0,
-      comments: [],
     };
 
     setQaData([newItem, ...qaData]);
