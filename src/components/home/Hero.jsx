@@ -79,8 +79,8 @@ const Hero = () => {
         <div className="info-box highlight">
           <h3>📢 Recent Issues</h3>
           <ul>
-            <li>Street light - <span className="pending">Pending</span></li>
-            <li>Water issue - <span className="resolved">Resolved</span></li>
+            <li>Street light - Pending</li>
+            <li>Water issue - Resolved</li>
           </ul>
         </div>
 

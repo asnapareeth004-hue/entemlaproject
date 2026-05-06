@@ -202,14 +202,3 @@
   font-size: 14px;
   margin: 4px 0;
 }
-
-/* STATUS COLORS */
-.pending {
-  color: #f59e0b;
-  font-weight: 600;
-}
-
-.resolved {
-  color: #86c598;
-  font-weight: 600;
-}
