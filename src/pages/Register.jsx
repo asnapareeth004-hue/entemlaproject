@@ -248,7 +248,7 @@ const Register = () => {
         {showPopup && (
           <div className="popup-overlay">
             <div className="popup">
-              <h2>🎉 Success!</h2>
+              <h2>Registration Successful!</h2>
               <p>Your account has been created successfully.</p>
               <button
                 onClick={() => {

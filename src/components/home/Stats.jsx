@@ -1,6 +1,6 @@
 import React from "react";
 import "./Stats.css";
-
+import { Link } from "react-router-dom";
 const Stats = () => {
   return (
     <div className="stats-container">
@@ -26,7 +26,7 @@ const Stats = () => {
       </div>
 
       <button className="complaint-btn">
-        + File Complaint
+        <Link to="/login">+ File Complaint</Link>
       </button>
 
     </div>
