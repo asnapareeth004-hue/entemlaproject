@@ -1,17 +1,32 @@
 import React from "react";
 import "./Stats.css";
-import { useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 const Stats = () => {
-  const navigate = useNavigate();
   return (
     <div className="stats-container">
 
-      
-      
+      <div className="stat-card total">
+        <h2>8742</h2>
+        <p>Total Complaints</p>
+      </div>
 
-      <button className="complaint-btn" onClick={() => navigate("/login")}>
-        + File Complaint
+      <div className="stat-card resolve">
+        <h2>6245</h2>
+        <p>Resolved</p>
+      </div>
+
+      <div className="stat-card progress">
+        <h2>2152</h2>
+        <p>In Progress</p>
+      </div>
+
+      <div className="stat-card response">
+        <h2>2.4 Days</h2>
+        <p>Avg Response</p>
+      </div>
+
+      <button className="complaint-btn">
+        <Link to="/login">+ File Complaint</Link>
       </button>
 
     </div>

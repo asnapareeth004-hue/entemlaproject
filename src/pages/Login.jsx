@@ -132,6 +132,7 @@ const styles = {
     padding: '0 16px',
     fontSize: '15px',
     background: '#fff',
+    color: '#111827',
     boxShadow: '0 1px 2px rgba(16,24,40,0.04) inset',
   },
   button: {
