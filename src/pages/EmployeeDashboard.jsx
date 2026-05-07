@@ -359,6 +359,7 @@ const [sentStatus, setSentStatus] = useState({});
       type="text"
       placeholder="Send reply..."
       value={replies[c.id] || ""}
+      color=""
       onChange={(e) => handleReplyChange(c.id, e.target.value)}
       style={{
         flex: 1,
@@ -367,7 +368,8 @@ const [sentStatus, setSentStatus] = useState({});
         borderRadius: 6,
         fontSize: 12,
         outline: "none",
-        background: "#F8FAFC"
+        background: "#F8FAFC",
+        color: "#000"
       }}
     />
    <button
@@ -390,7 +392,7 @@ const [sentStatus, setSentStatus] = useState({});
     setTimeout(() => {
       setSentStatus(prev => ({
         ...prev,
-        [c.id]: ""
+        [c.id]:""
       }));
     }, 2000);
   }}
