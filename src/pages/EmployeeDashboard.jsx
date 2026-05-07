@@ -169,6 +169,40 @@ const [sentStatus, setSentStatus] = useState({});
             MLA Portal · Employee View
           </p>
         </div>
+        <a
+  href="/login"
+  style={{
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 7,
+    padding: "9px 18px",
+    background: "#fff",
+    border: "1px solid #E2E8F0",
+    borderRadius: 9,
+    fontSize: 13,
+    fontWeight: 600,
+    color: "#334155",
+    textDecoration: "none",
+    boxShadow: "0 1px 3px rgba(240, 217, 217, 0.05)",
+    cursor: "pointer",
+  }}
+>
+  <svg
+    width="15"
+    height="15"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="#2563EB"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/>
+    <polyline points="9 21 9 12 15 12 15 21"/>
+  </svg>
+
+  Home
+</a>
       </div>
 
       {/* Stat Cards */}
