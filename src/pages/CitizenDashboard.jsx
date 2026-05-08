@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 const clr = {
   bg: "#F8FAFC", card: "#FFFFFF", border: "#E2E8F0", text: "#0F172A",
   muted: "#64748B", hint: "#94A3B8", primary: "#2563EB",
@@ -83,9 +83,9 @@ export default function CitizenDashboard() {
   const [urgency, setUrgency] = useState("");
   const [details, setDetails] = useState("");
   const [visibility, setVisibility] = useState("");
-  
+  const navigate = useNavigate();
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const[file,setFile]=useState(null);
+  const [file, setFile] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:5000/api/user")
@@ -113,35 +113,25 @@ export default function CitizenDashboard() {
     if (!details) newErrors.details = "Details are required";
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
-const newComplaint = {
+    const newComplaint = {
       _id: Date.now().toString(),
       id: Date.now().toString(),
-      title,
-      category,
-      urgency,
-      details,
-      visibility,
-      status: "pending", // Set a default status so StatusBadge works
+      title, category, urgency, details, visibility,
+      status: "pending",
       userId: user?._id || "usr_123456",
       date: new Date().toLocaleDateString(),
       evidence: file ? file.name : null,
       replies: [],
     };
-    setComplaints(prev=>[newComplaint,...prev]);
-    setTitle(""); 
-    setCategory(""); 
-    setUrgency(""); 
-    setDetails(""); 
-    setVisibility(""); 
-    setErrors({});
+    setComplaints(prev => [newComplaint, ...prev]);
+    setTitle(""); setCategory(""); setUrgency("");
+    setDetails(""); setVisibility(""); setErrors({});
     setSubmitSuccess(true);
     setFile(null);
     setTimeout(() => setSubmitSuccess(false), 3000);
   };
 
-  
   const filteredComplaints = complaints.filter(c =>
-    
     ((c.title || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
      (c.id || "").toLowerCase().includes(searchQuery.toLowerCase()))
   );
@@ -156,21 +146,59 @@ const newComplaint = {
     <div style={{ minHeight: "100vh", background: clr.bg, padding: "24px 28px", fontFamily: "'DM Sans','Segoe UI',sans-serif", fontSize: 14, color: clr.text }}>
 
       {/* ── Header ── */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 24 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 24, width: "100%" }}>
+
+        {/* Left Section */}
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3 }}>
             <div style={{ width: 7, height: 7, borderRadius: "50%", background: clr.success, boxShadow: `0 0 0 3px ${clr.successBg}` }} />
-            <span style={{ fontSize: 11, fontWeight: 700, color: clr.success, letterSpacing: "0.8px", textTransform: "uppercase" }}>Active Session</span>
+            <span style={{ fontSize: 11, fontWeight: 700, color: clr.success, letterSpacing: "0.8px", textTransform: "uppercase" }}>
+              Active Session
+            </span>
           </div>
-          <h1 style={{ fontSize: 24, fontWeight: 700, margin: 0, letterSpacing: "-0.4px" }}>Citizen Dashboard</h1>
-          <p style={{ fontSize: 12, color: clr.hint, margin: "3px 0 0" }}>MLA Portal · Civic Complaint System</p>
+          <h1 style={{ fontSize: 24, fontWeight: 700, margin: 0, letterSpacing: "-0.4px" }}>
+            Citizen Dashboard
+          </h1>
+          <p style={{ fontSize: 12, color: clr.hint, margin: "3px 0 0" }}>
+            MLA Portal · Civic Complaint System
+          </p>
         </div>
-        <button style={{ width: 40, height: 40, borderRadius: "50%", border: `1px solid ${clr.border}`, background: clr.card, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: shadow, position: "relative" }}>
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke={clr.muted} strokeWidth="2" strokeLinecap="round">
-            <path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/>
-          </svg>
-          <span style={{ position: "absolute", top: 8, right: 8, width: 7, height: 7, borderRadius: "50%", background: clr.danger, border: "2px solid #fff" }} />
-        </button>
+
+        {/* ✅ Right Section — Notification first, Home last (rightmost) */}
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginLeft: "auto" }}>
+
+          {/* Notification Button */}
+          <button style={{
+            width: 40, height: 40, borderRadius: "50%",
+            border: `1px solid ${clr.border}`, background: clr.card,
+            cursor: "pointer", display: "flex", alignItems: "center",
+            justifyContent: "center", boxShadow: shadow, position: "relative"
+          }}>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke={clr.muted} strokeWidth="2" strokeLinecap="round">
+              <path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/>
+            </svg>
+            <span style={{ position: "absolute", top: 8, right: 8, width: 7, height: 7, borderRadius: "50%", background: clr.danger, border: "2px solid #fff" }} />
+          </button>
+
+          {/* Home Button — Rightmost */}
+          <button
+            onClick={() => navigate("/")}
+            style={{
+              display: "flex", alignItems: "center", gap: 8,
+              padding: "9px 18px", borderRadius: 10, border: "none",
+              background: clr.primary, color: "#fff", fontSize: 13,
+              fontWeight: 700, cursor: "pointer",
+              boxShadow: "0 2px 8px rgba(37,99,235,0.25)"
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 10.5L12 3l9 7.5" />
+              <path d="M5 9.5V21h14V9.5" />
+            </svg>
+            Home
+          </button>
+
+        </div>
       </div>
 
       {/* ── ROW 1: Profile | Track Details ── */}
@@ -236,7 +264,6 @@ const newComplaint = {
                     <p style={{ fontSize: 12, color: clr.muted, margin: 0, lineHeight: 1.6 }}>{selectedComplaint.details}</p>
                   </div>
                 )}
-                const [replyText, setReplyText] = useState("");
               </div>
             ) : (
               <div style={{ textAlign: "center" }}>
@@ -315,13 +342,13 @@ const newComplaint = {
                 <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
               </svg>
               Upload Evidence
-              <input hidden type="file" accept="image/*" onChange={(e)=>setFile(e.target.files[0])} />
+              <input hidden type="file" accept="image/*" onChange={(e) => setFile(e.target.files[0])} />
             </label>
             {file && (
-  <p style={{ fontSize: 12, color: "green", marginTop: 6 }}>
-    File selected: {file.name}
-  </p>
-)}
+              <p style={{ fontSize: 12, color: "green", marginTop: 6 }}>
+                File selected: {file.name}
+              </p>
+            )}
             <button type="submit" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "9px 24px", borderRadius: radius.sm, background: clr.primary, color: "#fff", fontSize: 13, fontWeight: 700, border: "none", cursor: "pointer", boxShadow: "0 2px 8px rgba(37,99,235,0.25)" }}>
               Submit Complaint
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -362,40 +389,25 @@ const newComplaint = {
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <StatusBadge status={c.status} />
                   <span style={{ fontSize: 10, color: "#CBD5E1", fontWeight: 500 }}>#{(c.id || "").slice(-6).toUpperCase()}</span>
- {c.evidence && (
-  <div style={{ fontSize: 11, color: "#16A34A", marginTop: 6 }}>
-    📎 {c.evidence}
-  </div>
-)}
-{/* 🔥 Updates / Replies Section */}
-<div style={{ marginTop: 10 }}>
-  <div style={{ fontSize: 10, fontWeight: 700, color: clr.hint, marginBottom: 4 }}>
-    Updates
-  </div>
-
-  {/* Show replies */}
-  <div style={{ maxHeight: 70, overflowY: "auto", marginBottom: 6 }}>
-    {c.replies && c.replies.length > 0 ? (
-      c.replies.map((r, i) => (
-        <div key={i} style={{
-          fontSize: 11,
-          background: "#F8FAFC",
-          border: `1px solid ${clr.border}`,
-          borderRadius: 6,
-          padding: "4px 6px",
-          marginBottom: 4
-        }}>
-          <strong>{r.from}:</strong> {r.text}
-        </div>
-      ))
-    ) : (
-      <span style={{ fontSize: 10, color: clr.hint }}>No updates</span>
-    )}
-  </div>
-
-  
-</div>
-
+                </div>
+                {c.evidence && (
+                  <div style={{ fontSize: 11, color: "#16A34A", marginTop: 6 }}>
+                    📎 {c.evidence}
+                  </div>
+                )}
+                <div style={{ marginTop: 10 }}>
+                  <div style={{ fontSize: 10, fontWeight: 700, color: clr.hint, marginBottom: 4 }}>Updates</div>
+                  <div style={{ maxHeight: 70, overflowY: "auto", marginBottom: 6 }}>
+                    {c.replies && c.replies.length > 0 ? (
+                      c.replies.map((r, i) => (
+                        <div key={i} style={{ fontSize: 11, background: "#F8FAFC", border: `1px solid ${clr.border}`, borderRadius: 6, padding: "4px 6px", marginBottom: 4 }}>
+                          <strong>{r.from}:</strong> {r.text}
+                        </div>
+                      ))
+                    ) : (
+                      <span style={{ fontSize: 10, color: clr.hint }}>No updates</span>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
