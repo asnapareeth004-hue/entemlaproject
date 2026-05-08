@@ -218,9 +218,36 @@ export default function MlaComplaintDashboard() {
             {users.length > 0 ? `${users.length} registered citizens · ` : ""}Sorted by urgency
           </p>
         </div>
+
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          
+          
+       <a
+  
+    href="/"
+    style={{
+      display: "inline-flex", alignItems: "center", gap: 7,
+      padding: "7px 16px",
+      background: clr.card,
+      border: `1px solid ${clr.border}`,
+      borderRadius: R.md,
+      fontSize: 13, fontWeight: 600, color: clr.text,
+      textDecoration: "none",
+      boxShadow: shadow,
+      cursor: "pointer",
+    }}
+  >
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={clr.primary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/>
+      <polyline points="9 21 9 12 15 12 15 21"/>
+    </svg>
+    Home
+  </a>
+
         <div style={{ fontSize: 12, color: clr.hint, background: clr.card, border: `1px solid ${clr.border}`, borderRadius: R.md, padding: "7px 14px", boxShadow: shadow }}>
           {filteredComplaints.length} of {totalComplaints} complaints
         </div>
+      </div>
       </div>
 
       {/* ── Stat Cards ── */}
