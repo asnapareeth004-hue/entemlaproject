@@ -65,23 +65,49 @@ const Register = () => {
   };
 
   // Submit
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!phoneVerified || !emailVerified) {
-      alert("Verify phone and email first");
-      return;
-    }
+  if (!phoneVerified || !emailVerified) {
+    alert("Verify phone and email first");
+    return;
+  }
 
-    if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match");
+  if (form.password !== form.confirmPassword) {
+    alert("Passwords do not match");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:3001/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: form.name,
+        phone: form.phone,
+        email: form.email,
+        place: form.place,
+        password: form.password,
+        role: "citizen", // default role for this registration page
+      }),
+    });
+
+    const data = await response.json();
+    console.log(data);
+
+    if (!response.ok) {
+      alert(data.message || "Registration failed");
       return;
     }
 
     setShowPopup(true);
-    console.log(form);
-  };
-
+  } catch (error) {
+    console.error("Registration error:", error);
+    alert("Unable to connect to server");
+  }
+};
   return (
     <div className="register-container">
       <div className="register-card">

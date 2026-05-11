@@ -7,43 +7,53 @@ export default function LoginPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
   e.preventDefault();
 
   const role = localStorage.getItem("role");
 
-  const credentials = {
-    citizen: {
-      email: "citizen@gmail.com",
-      password: "1234",
-      route: "/citizen",
-    },
-    mla: {
-      email: "mla@gmail.com",
-      password: "5678",
-      route: "/mla",
-    },
-    employee: {
-      email: "employee@gmail.com",
-      password: "9999",
-      route: "/employee",
-    },
-  };
+  // REPLACE it with this:
+if (!role) {
+  alert("Please select role first");
+  navigate("/role");
+  return;
+}
 
-  const user = credentials[role];
+try {
+  const response = await fetch("http://localhost:3001/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+      password,
+      role,
+    }),
+  });
 
-  if (!role || !user) {
-    alert("Please select role first");
-    navigate("/role");
+  const data = await response.json();
+  console.log(data);
+
+  if (!response.ok) {
+    alert(data.message || "Login failed");
     return;
   }
 
-  // 🔥 REAL AUTH CHECK
-  if (email === user.email && password === user.password) {
-    navigate(user.route);
-  } else {
-    alert("Incorrect email or password");
-  }
+  localStorage.setItem("token", data.token || "");
+  localStorage.setItem("user", JSON.stringify(data.user || {}));
+  localStorage.setItem("role", data.user?.role || role);
+
+  const userRole = data.user?.role || role;
+
+  if (userRole === "citizen") navigate("/citizen");
+  else if (userRole === "mla") navigate("/mla");
+  else if (userRole === "employee") navigate("/employee");
+  else navigate("/");
+} catch (error) {
+  console.error(error);
+  alert("Unable to connect to server");
+}
 };
   return (
     <div style={styles.page}>
